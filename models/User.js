@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  aiCredits: {
+    type: Number,
+    default: 5,
+  },
 }, { timestamps: true });
 
 // Hash password before saving
