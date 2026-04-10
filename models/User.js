@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 5,
   },
+  lastAiResetDate: {
+    type: Date,
+    default: Date.now,
+  },
 }, { timestamps: true });
 
 // Hash password before saving

@@ -65,6 +65,16 @@ router.post('/login', async (req, res) => {
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    
+    // Automatically reset AI credits if 24 hours have passed
+    const ONE_DAY = 24 * 60 * 60 * 1000;
+    if (Date.now() - new Date(user.lastAiResetDate).getTime() > ONE_DAY) {
+      user.aiCredits = 5;
+      user.lastAiResetDate = Date.now();
+      await user.save();
+    }
+
     res.json({ user });
   } catch (err) {
     console.error(err.message);
