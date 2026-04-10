@@ -35,7 +35,15 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-const mongoURI = (process.env.MONGO_URI || 'mongodb://localhost:27017/applymate').replace(/^["']|["']$/g, '').trim();
+let mongoURI = (process.env.MONGO_URI || 'mongodb://localhost:27017/applymate').replace(/^["']|["']$/g, '').trim();
+
+// Strip out accidental "MONGO_URI=" prefix if user pasted the entire assignment statement
+if (mongoURI.startsWith('MONGO_URI=')) {
+  mongoURI = mongoURI.replace('MONGO_URI=', '');
+}
+
+// Log a safe partial snippet so they can see the typo in Render logs
+console.log('Attempting to connect to MongoDB with scheme:', mongoURI.substring(0, 20) + '...');
 
 // Database Connection
 mongoose
