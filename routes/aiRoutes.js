@@ -5,8 +5,8 @@ const User = require('../models/User');
 const { OpenAI } = require('openai');
 
 const openai = new OpenAI({
-  apiKey: process.env.KIMI_API_KEY || 'sk-UaDAOLXWZEqmPADFdYJfU0Dexsf6U0FYwamWTD3g5f2Vehyx',
-  baseURL: 'https://api.moonshot.cn/v1',
+  apiKey: process.env.GROK_API_KEY,
+  baseURL: 'https://api.x.ai/v1',
 });
 
 // @route   POST api/ai/job-search
@@ -26,7 +26,7 @@ router.post('/job-search', auth, async (req, res) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "moonshot-v1-8k",
+      model: "grok-2-latest",
       messages: [
         { 
           role: "system", 

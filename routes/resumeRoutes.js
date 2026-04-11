@@ -7,8 +7,8 @@ const User = require('../models/User');
 const { OpenAI } = require('openai');
 
 const openai = new OpenAI({
-  apiKey: process.env.KIMI_API_KEY || 'sk-UaDAOLXWZEqmPADFdYJfU0Dexsf6U0FYwamWTD3g5f2Vehyx',
-  baseURL: 'https://api.moonshot.cn/v1',
+  apiKey: process.env.GROK_API_KEY,
+  baseURL: 'https://api.x.ai/v1',
 });
 
 // Setup multer for memory storage
@@ -57,7 +57,7 @@ router.post('/analyze', auth, async (req, res) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "moonshot-v1-8k",
+      model: "grok-2-latest",
       messages: [
         { role: "system", content: "You are an expert ATS tracking parser. You assess a resume against a job description. Return STRICTLY valid JSON ONLY without markdown blocks. Schema: { \"percentage\": 75, \"matched\": [\"React\"], \"missing\": [\"AWS\"], \"suggestions\": [\"Details...\"] }" },
         { role: "user", content: `Job Desc: ${jobDesc.substring(0, 3000)}\n\nResume: ${resumeText.substring(0, 3000)}` }
