@@ -11,9 +11,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: '*', // In production, replace with your frontend domain
+  origin: ['http://localhost:3000', 'https://applymatee.netlify.app', 'https://applymate.netlify.app', 'https://applmate-backend.onrender.com'], 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 app.use(express.json());
 
