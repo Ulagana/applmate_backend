@@ -27,7 +27,7 @@ router.post('/signup', async (req, res) => {
       expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     });
 
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email, bio: user.bio } });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, bio: user.bio, profilePic: user.profilePic } });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
       expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     });
 
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email, bio: user.bio } });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, bio: user.bio, profilePic: user.profilePic } });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -86,7 +86,7 @@ router.get('/me', auth, async (req, res) => {
 
 // @route   PUT api/auth/profile
 router.put('/profile', auth, async (req, res) => {
-  const { name, email, bio } = req.body;
+  const { name, email, bio, profilePic } = req.body;
   try {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
@@ -94,9 +94,10 @@ router.put('/profile', auth, async (req, res) => {
     if (name) user.name = name;
     if (email) user.email = email;
     if (bio !== undefined) user.bio = bio;
+    if (profilePic !== undefined) user.profilePic = profilePic;
 
     await user.save();
-    res.json({ user: { id: user.id, name: user.name, email: user.email, bio: user.bio } });
+    res.json({ user: { id: user.id, name: user.name, email: user.email, bio: user.bio, profilePic: user.profilePic } });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

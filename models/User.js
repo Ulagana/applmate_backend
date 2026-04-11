@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  profilePic: {
+    type: String,
+    default: '',
+  },
   aiCredits: {
     type: Number,
     default: 5,
