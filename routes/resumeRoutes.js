@@ -76,8 +76,9 @@ router.post('/analyze', auth, async (req, res) => {
 
     res.json({ result: output, remainingCredits: user.aiCredits });
   } catch (err) {
-    console.error('AI Error:', err);
-    res.status(500).json({ message: 'Failed to analyze resume with AI. Please try again later.' });
+    console.error('AI Error:', err.message);
+    const errorMessage = err.response?.data?.error?.message || err.message;
+    res.status(500).json({ message: `AI API Error: ${errorMessage}` });
   }
 });
 

@@ -44,8 +44,9 @@ router.post('/job-search', auth, async (req, res) => {
 
     res.json({ result: outputText, remainingCredits: user.aiCredits });
   } catch (err) {
-    console.error('AI Error:', err);
-    res.status(500).json({ message: 'Failed to search jobs with AI. Please try again later.' });
+    console.error('AI Error:', err.message);
+    const errorMessage = err.response?.data?.error?.message || err.message;
+    res.status(500).json({ message: `AI API Error: ${errorMessage}` });
   }
 });
 
