@@ -26,7 +26,7 @@ router.post('/job-search', auth, async (req, res) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "grok-2-latest",
+      model: "grok-beta",
       messages: [
         { 
           role: "system", 

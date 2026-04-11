@@ -57,7 +57,7 @@ router.post('/analyze', auth, async (req, res) => {
     }
 
     const completion = await openai.chat.completions.create({
-      model: "grok-2-latest",
+      model: "grok-beta",
       messages: [
         { role: "system", content: "You are an expert ATS tracking parser. You assess a resume against a job description. Return STRICTLY valid JSON ONLY without markdown blocks. Schema: { \"percentage\": 75, \"matched\": [\"React\"], \"missing\": [\"AWS\"], \"suggestions\": [\"Details...\"] }" },
         { role: "user", content: `Job Desc: ${jobDesc.substring(0, 3000)}\n\nResume: ${resumeText.substring(0, 3000)}` }
