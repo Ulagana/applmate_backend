@@ -5,7 +5,7 @@ const User = require('../models/User');
 const { OpenAI } = require('openai');
 
 const openai = new OpenAI({
-  apiKey: process.env.GROK_API_KEY,
+  apiKey: process.env.GROK_API_KEY || 'missing_api_key_configure_in_render',
   baseURL: 'https://api.x.ai/v1',
 });
 
